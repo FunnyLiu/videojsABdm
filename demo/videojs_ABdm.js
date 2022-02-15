@@ -20,6 +20,8 @@ function ABPinit(){
 		//Bind CommentManager.
 		///////////////////////////////////////////
 		if(typeof CommentManager !== "undefined"){
+			//https://github.com/jabbany/CommentCoreLibrary/blob/master/docs/Tutorial.zh_CN.md
+			//CommentManager的操作文档
 			this.cmManager = new CommentManager(this.danmuDiv);
 			this.cmManager.display = true;
 			this.cmManager.init();
@@ -102,6 +104,7 @@ function ABPinit(){
 				var cm = this.cmManager;
 				var cmvideo = video;
 				xmlhttp.onreadystatechange = function(){
+					debugger;
 					if (xmlhttp.readyState==4 && xmlhttp.status==200){
 						if(navigator.appName == 'Microsoft Internet Explorer'){
 							var f = new ActiveXObject("Microsoft.XMLDOM");
@@ -111,6 +114,9 @@ function ABPinit(){
 							cm.seek(cmvideo.currentTime*1000);
 							callback(true);
 						}else{
+							// 这里是真正的价值弹幕流程，
+							// 弹幕字段https://github.com/jabbany/CommentCoreLibrary/blob/master/docs/CommentProperties.md
+							console.log(BilibiliParser(xmlhttp.responseXML))
 							cm.seek(cmvideo.currentTime*1000);
 							cm.load(BilibiliParser(xmlhttp.responseXML));
 							callback(true);
